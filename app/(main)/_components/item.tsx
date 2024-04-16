@@ -17,7 +17,7 @@ import {useUser} from "@clerk/clerk-react";
 
 type Props = {
     label: string;
-    onClick: () => void;
+    onClick?: () => void;
     onExpand?: () => void
     icon: LucideIcon
     documentIcon?: string
@@ -97,7 +97,7 @@ const Item = ({
             {!!id && (
                 <div
                     role={"button"}
-                    className={"h-full rounded-sm hover:bg-neutral-300 dark:bg-neutral-600 mr-1"}
+                    className={"h-full rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 mr-1"}
                     onClick={handleExpand}
                 >
                     <ChevIcon className={"h-4 w-4 shrink-0 text-muted-foreground/50"}/>
