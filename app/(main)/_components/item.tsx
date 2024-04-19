@@ -5,7 +5,6 @@ import {Skeleton} from "@/components/ui/skeleton";
 import {useMutation} from "convex/react";
 import {api} from "@/convex/_generated/api";
 import {toast} from "sonner";
-import {router} from "next/client";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,6 +13,7 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import {useUser} from "@clerk/clerk-react";
+import {useRouter} from "next/navigation";
 
 type Props = {
     label: string;
@@ -43,6 +43,7 @@ const Item = ({
     const create = useMutation(api.documents.create)
     const archive = useMutation(api.documents.archive)
 
+    const router = useRouter()
     const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation()
         if (!id) return
@@ -66,12 +67,15 @@ const Item = ({
     const onCreate = async (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (!id) return
         const promise = create({title: "Untitled", parentDocument: id})
-            .then(id => {
+            .then(async (id) => {
                 if (!expanded) {
                     onExpand?.()
                 }
-                // router.push(`/documents/${id}`)
+                await router.push(`/documents/${id}`)
 
+            })
+            .catch(e => {
+                console.error(e)
             })
 
         toast.promise(promise, {

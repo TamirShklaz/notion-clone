@@ -6,7 +6,8 @@ import {api} from "@/convex/_generated/api";
 import Toolbar from "@/components/toolbar";
 import Cover from "@/components/cover";
 import {Skeleton} from "@/components/ui/skeleton";
-import Editor from "@/components/editor";
+import {useMemo} from "react";
+import dynamic from "next/dynamic";
 
 type Props = {
     params: {
@@ -18,6 +19,8 @@ type Props = {
 function Page({params}: Props) {
 
     const document = useQuery(api.documents.getById, {documentId: params.documentId})
+
+    const Editor = useMemo(() => dynamic(() => import("@/components/editor"), {ssr: false}), [])
 
     const update = useMutation(api.documents.update)
 

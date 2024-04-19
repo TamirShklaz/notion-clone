@@ -1,7 +1,7 @@
 import {ChevronsLeft, MenuIcon, Plus, PlusCircle, Search, Settings, Trash} from "lucide-react";
 import {ElementRef, useEffect, useRef, useState} from "react";
 import {useMediaQuery} from "usehooks-ts";
-import {useParams, usePathname} from "next/navigation";
+import {useParams, usePathname, useRouter} from "next/navigation";
 import {cn} from "@/lib/utils";
 import {UserItem} from "@/app/(main)/_components/user-item";
 import {useMutation, useQuery} from "convex/react";
@@ -30,6 +30,8 @@ const Navigation = (props: Props) => {
     const params = useParams()
     const create = useMutation(api.documents.create)
     const documents = useQuery(api.documents.get)
+
+    const router = useRouter()
 
 
     useEffect(() => {
@@ -96,6 +98,9 @@ const Navigation = (props: Props) => {
 
     const handleCreate = () => {
         const promise = create({title: "Untitled"})
+            .then((id) => {
+                router.push(`/documents/${id}`)
+            })
         toast.promise(promise, {
             loading: "Creating...",
             success: "Document created",
