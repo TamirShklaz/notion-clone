@@ -33,7 +33,7 @@ function Editor({onDocChange, initialContent, editable}: Props) {
     return (
         <BlockNoteView editor={editor}
                        theme={resolvedTheme === "dark" ? "dark" : "light"}
-                       editable
+                       editable={editable}
                        onChange={() => {
                            onDocChange(JSON.stringify(editor.document))
                        }}/>

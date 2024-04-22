@@ -135,14 +135,17 @@ const Navigation = (props: Props) => {
                     <div className={"mt-4"}>
                         <DocumentList/>
                         <Item label={"New page"} onClick={handleCreate} icon={Plus}/>
-                        <Popover>
-                            <PopoverTrigger className={"w-full"}>
-                                <Item label={"Trash"} icon={Trash}/>
-                            </PopoverTrigger>
-                            <PopoverContent side={isMobile ? "bottom" : "right"} className={"p-0 w-72"}>
-                                <TrashBox/>
-                            </PopoverContent>
-                        </Popover>
+                        <div className={"mt-4"}>
+                            <Popover>
+                                <PopoverTrigger className={"w-full"}>
+                                    <Item label={"Trash"} icon={Trash}/>
+                                </PopoverTrigger>
+                                <PopoverContent side={isMobile ? "bottom" : "right"} className={"p-0 w-72"}>
+                                    <TrashBox/>
+                                </PopoverContent>
+                            </Popover>
+                        </div>
+
                     </div>
                     <div
                         onMouseDown={handleMouseDown}
